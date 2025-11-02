@@ -49,13 +49,13 @@
                 <li class="nav-item">
                     <a href="" class="nav-link has-sub"><i class="ri-group-line"></i> <span>Data Peserta</span></a>
                     <nav class="nav nav-sub">
-                        <a href="#" class="nav-sub-link">Daftar Dapil</a>
-                        <a href="#" class="nav-sub-link">Daftar Peserta</a>
-                        <a href="#" class="nav-sub-link">Daftar Penilaian</a>
-                        <a href="#" class="nav-sub-link">Daftar Hasil Penilaian</a>
-                        <a href="#" class="nav-sub-link">Daftar Peserta (Lolos)</a>
-                        <a href="#" class="nav-sub-link">Daftar Peserta (Lolos Seleksi)</a>
-                        <a href="#" class="nav-sub-link">Laporan Kustom</a>
+                        <a href="{{ route('admin.dapil.index') }}" class="nav-sub-link">Daftar Dapil</a>
+                        <a href="{{ route('admin.peserta.index') }}"  class="nav-sub-link">Daftar Peserta</a>
+                        <a href="{{ route('admin.penilaian.index') }}"  class="nav-sub-link">Daftar Penilaian</a>
+                        <a href="{{ route('admin.hasil_penilaian.index') }}" class="nav-sub-link">Daftar Hasil Penilaian</a>
+                        <a href="{{ route('admin.peserta_lolos.index') }}" class="nav-sub-link">Daftar Peserta (Lolos)</a>
+                        <a href="{{ route('admin.peserta_lolos_seleksi.index') }}" class="nav-sub-link">Daftar Peserta (Lolos Seleksi)</a>
+                        <a href="{{ route('admin.laporan_kustom.index') }}" class="nav-sub-link">Laporan Kustom</a>
                     </nav>
                 </li>
             </ul>
@@ -68,8 +68,8 @@
                 <li class="nav-item">
                     <a href="" class="nav-link has-sub"><i class="ri-file-user-line"></i> <span>Data Penilaian CV</span></a>
                     <nav class="nav nav-sub">
-                        <a href="#" class="nav-sub-link">Daftar Penilaian CV (Belum)</a>
-                        <a href="#" class="nav-sub-link">Daftar Penilaian CV (Sudah)</a>
+                        <a href="{{ route('admin.penilaian_cv_belum.index') }}" class="nav-sub-link">Daftar Penilaian CV (Belum)</a>
+                        <a href="{{ route('admin.penilaian_cv_sudah.index') }}" class="nav-sub-link">Daftar Penilaian CV (Sudah)</a>
                     </nav>
                 </li>
             </ul>
@@ -82,8 +82,8 @@
                 <li class="nav-item">
                     <a href="" class="nav-link has-sub"><i class="ri-file-text-line"></i> <span>Data Penilaian Esai</span></a>
                     <nav class="nav nav-sub">
-                        <a href="#" class="nav-sub-link">Daftar Penilaian Esai (Belum)</a>
-                        <a href="#" class="nav-sub-link">Daftar Penilaian Esai (Sudah)</a>
+                        <a href="{{ route('admin.penilaian_esai_belum.index') }}" class="nav-sub-link">Daftar Penilaian Esai (Belum)</a>
+                        <a href="{{ route('admin.penilaian_esai_sudah.index') }}" class="nav-sub-link">Daftar Penilaian Esai (Sudah)</a>
                     </nav>
                 </li>
             </ul>
@@ -96,8 +96,8 @@
                 <li class="nav-item">
                     <a href="" class="nav-link has-sub"><i class="ri-video-line"></i> <span>Data Penilaian Video</span></a>
                     <nav class="nav nav-sub">
-                        <a href="#" class="nav-sub-link">Daftar Penilaian Video (Belum)</a>
-                        <a href="#" class="nav-sub-link">Daftar Penilaian Video (Sudah)</a>
+                        <a href="{{ route('admin.penilaian_video_belum.index') }}" class="nav-sub-link">Daftar Penilaian Video (Belum)</a>
+                        <a href="{{ route('admin.penilaian_video_sudah.index') }}" class="nav-sub-link">Daftar Penilaian Video (Sudah)</a>
                     </nav>
                 </li>
             </ul>

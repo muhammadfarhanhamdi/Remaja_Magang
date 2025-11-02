@@ -6,17 +6,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class LaporanKustomModel extends Model
+class PenilaianModel extends Model
 {
     use HasFactory;
 
-    // protected $connection = 'perencanaan';
-    protected $table = 'laporan_kustom';
+    // protected $connection = 'db_parja';
+    protected $table = 'pengguna_nilai';
+    protected $primaryKey = 'id';
 
     protected $guarded = [];
 
     public $timestamps = false;
 
+    protected $casts = [
+        'bobot' => 'float',
+        'skor' => 'float',
+        'nilai' => 'float',
+        'tanggal_input' => 'datetime',
+        'tanggal_update' => 'datetime',
+    ];
 
     protected static function boot()
     {
@@ -32,6 +40,5 @@ class LaporanKustomModel extends Model
             $model->tanggal_update = now();
         });
     }
-
 
 }

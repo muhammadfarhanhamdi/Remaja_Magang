@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class LaporanKustomModel extends Model
+class DapilModel extends Model
 {
     use HasFactory;
 
-    // protected $connection = 'perencanaan';
-    protected $table = 'laporan_kustom';
+    protected $connection = 'parja';
+    protected $table = 'dapil';
 
     protected $guarded = [];
 

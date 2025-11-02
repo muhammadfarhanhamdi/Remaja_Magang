@@ -4,40 +4,51 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MakController;
 use App\Http\Controllers\BastController;
+use App\Http\Controllers\DapilController;
 use App\Http\Controllers\RapatController;
 use App\Http\Controllers\TahunController;
+use App\Http\Controllers\PosterController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\SkoringController;
+use App\Http\Controllers\TingkatController;
 use App\Http\Controllers\InstansiController;
+use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\UndanganController;
 use App\Http\Controllers\AsalSuratController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\KodeSuratController;
+use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\PublikasiController;
+use App\Http\Controllers\SkoringCvController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DaftarHadirController;
+use App\Http\Controllers\PartisipasiController;
+use App\Http\Controllers\PesertaLolosController;
+use App\Http\Controllers\RekapitulasiController;
 use App\Http\Controllers\TipeUndanganController;
+use App\Http\Controllers\KontenSettingController;
+use App\Http\Controllers\LaporanKustomController;
+use App\Http\Controllers\HasilPenilaianController;
 use App\Http\Controllers\ArsipPerencanaanController;
 use App\Http\Controllers\KlasifikasiSuratController;
+use App\Http\Controllers\PenilaianCvBelumController;
+use App\Http\Controllers\PenilaianCvSudahController;
+use App\Http\Controllers\PenilaianEsaiBelumController;
+use App\Http\Controllers\PenilaianEsaiSudahController;
+use App\Http\Controllers\PenilaianVideoBelumController;
+use App\Http\Controllers\PenilaianVideoSudahController;
+use App\Http\Controllers\PesertaLolosSeleksiController;
 use App\Http\Controllers\SuratMasukPerencanaanController;
-use App\Http\Controllers\DaftarHadirController;
-use App\Http\Controllers\KegiatanController;
-use App\Http\Controllers\KontenSettingController;
-use App\Http\Controllers\KriteriaController;
-use App\Http\Controllers\PartisipasiController;
-use App\Http\Controllers\PosterController;
-use App\Http\Controllers\RekapitulasiController;
-use App\Http\Controllers\SkoringCvController;
-use App\Http\Controllers\TingkatController;
-use App\Http\Controllers\PublikasiController;
 
 
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-
-
 
     Route::get('/tingkat', [TingkatController::class, 'index'])->name('tingkat.index');
     Route::get('/tingkat/create', [TingkatController::class, 'create'])->name('tingkat.create');
@@ -45,9 +56,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/tingkat/{id}/edit', [TingkatController::class, 'edit'])->name('tingkat.edit');
     Route::put('/tingkat/{id}', [TingkatController::class, 'update'])->name('tingkat.update');
     Route::delete('/tingkat/{id}', [TingkatController::class, 'destroy'])->name('tingkat.destroy');
-
-   
-
 
     Route::get('/partisipasi', [PartisipasiController::class, 'index'])->name('partisipasi.index');
     Route::get('/partisipasi/create', [PartisipasiController::class, 'create'])->name('partisipasi.create');
@@ -106,20 +114,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/publikasi/{id}/edit', [App\Http\Controllers\PublikasiController::class, 'edit'])->name('publikasi.edit');
     Route::put('/publikasi/{id}', [App\Http\Controllers\PublikasiController::class, 'update'])->name('publikasi.update');
     Route::delete('/publikasi/{id}', [App\Http\Controllers\PublikasiController::class, 'destroy'])->name('publikasi.destroy');
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
 
     Route::get('/tahun', [TahunController::class, 'index'])->name('tahun.index');
     Route::get('/tahun/add', [TahunController::class, 'create'])->name('tahun.add');
@@ -208,6 +202,79 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/surat-masuk-perencanaan/{id}/{jenis}/delete', [SuratMasukPerencanaanController::class, 'deleteFileByJenis'])->name('surat_masuk_perencanaan.delete_file_by_jenis');
     Route::get('/surat-masuk-perencanaan/{id}/download', [SuratMasukPerencanaanController::class, 'downloadFile'])->name('surat_masuk_perencanaan.download');
     Route::get('/surat-masuk-perencanaan/{id}/download-arsip', [SuratMasukPerencanaanController::class, 'downloadArsipFile'])->name('surat_masuk_perencanaan.download_arsip');
+
+    //route dapil
+    Route::get('/dapil', [DapilController::class, 'index'])->name('dapil.index');
+    Route::get('/dapil/create', [DapilController::class, 'create'])->name('dapil.create');
+    Route::post('/dapil', [DapilController::class, 'store'])->name('dapil.store');
+    Route::get('/dapil/{id}/edit', [DapilController::class, 'edit'])->name('dapil.edit');
+    Route::put('/dapil/{id}', [DapilController::class, 'update'])->name('dapil.update');
+    Route::delete('/dapil/{id}', [DapilController::class, 'destroy'])->name('dapil.destroy');
+
+    //route peserta
+    Route::get('/peserta', [PesertaController::class, 'index'])->name('peserta.index');
+    Route::get('/peserta/create', [PesertaController::class, 'create'])->name('peserta.create');
+    Route::post('/peserta', [PesertaController::class, 'store'])->name('peserta.store');
+    Route::get('/peserta/{id}/edit', [PesertaController::class, 'edit'])->name('peserta.edit');
+    Route::put('/peserta/{id}', [PesertaController::class, 'update'])->name('peserta.update');
+    Route::delete('/peserta/{id}', [PesertaController::class, 'destroy'])->name('peserta.destroy');
+
+    //route penilaian
+    Route::get('/penilaian', [PenilaianController::class, 'index'])->name('penilaian.index');
+    Route::get('/penilaian/create', [PenilaianController::class, 'create'])->name('penilaian.create');
+    Route::post('/penilaian', [PenilaianController::class, 'store'])->name('penilaian.store');
+    Route::get('/penilaian/{id}/edit', [PenilaianController::class, 'edit'])->name('penilaian.edit');
+    Route::put('/penilaian/{id}', [PenilaianController::class, 'update'])->name('penilaian.update');
+    Route::delete('/penilaian/{id}', [PenilaianController::class, 'destroy'])->name('penilaian.destroy');
+
+    //route hasil penilaian
+    Route::get('/hasil-penilaian', [HasilPenilaianController::class, 'index'])->name('hasil_penilaian.index');
+    Route::get('/hasil-penilaian/create', [HasilPenilaianController::class, 'create'])->name('hasil_penilaian.create');
+    Route::post('/hasil-penilaian', [HasilPenilaianController::class, 'store'])->name('hasil_penilaian.store');
+    Route::get('/hasil-penilaian/{id}/edit', [HasilPenilaianController::class, 'edit'])->name('hasil_penilaian.edit');
+    Route::put('/hasil-penilaian/{id}', [HasilPenilaianController::class, 'update'])->name('hasil_penilaian.update');
+    Route::delete('/hasil-penilaian/{id}', [HasilPenilaianController::class, 'destroy'])->name('hasil_penilaian.destroy');
+
+    //route peserta lolos
+    Route::get('/peserta-lolos', [PesertaLolosController::class, 'index'])->name('peserta_lolos.index');
+    Route::get('/peserta-lolos/{id}/edit', [PesertaLolosController::class, 'edit'])->name('peserta_lolos.edit');
+
+    //route peserta lolos seleksi
+    Route::get('/peserta-lolos-seleksi', [PesertaLolosSeleksiController::class, 'index'])->name('peserta_lolos_seleksi.index');
+    Route::get('/peserta-lolos-seleksi/{id}/edit', [PesertaLolosSeleksiController::class, 'edit'])->name('peserta_lolos_seleksi.edit');
+
+    //route laporan kustom
+    Route::get('/laporan-kustom', [LaporanKustomController::class, 'index'])->name('laporan_kustom.index');
+    Route::get('/laporan-kustom/create', [LaporanKustomController::class, 'create'])->name('laporan_kustom.create');
+    Route::post('/laporan-kustom', [LaporanKustomController::class, 'store'])->name('laporan_kustom.store');
+    Route::get('/laporan-kustom/{id}/edit', [LaporanKustomController::class, 'edit'])->name('laporan_kustom.edit');
+    Route::put('/laporan-kustom/{id}', [LaporanKustomController::class, 'update'])->name('laporan_kustom.update');
+    Route::delete('/laporan-kustom/{id}', [LaporanKustomController::class, 'destroy'])->name('laporan_kustom.destroy');
+    Route::get('/laporan-kustom/{id}/lihat', [LaporanKustomController::class, 'lihat'])->name('laporan_kustom.view');
+
+    //route penilaian cv belum
+    Route::get('/penilaian-cv-belum', [PenilaianCvBelumController::class, 'index'])->name('penilaian_cv_belum.index');
+    Route::get('/penilaian-cv-belum/{id}/edit', [PenilaianCvBelumController::class, 'edit'])->name('penilaian_cv_belum.edit');
+
+    //route penilaian cv sudah
+    Route::get('/penilaian-cv-sudah', [PenilaianCvSudahController::class, 'index'])->name('penilaian_cv_sudah.index');
+    Route::get('/penilaian-cv-sudah/{id}', [PenilaianCvSudahController::class, 'show'])->name('penilaian_cv_sudah.show');
+
+    //route penilaian esai belum
+    Route::get('/penilaian-esai-belum', [PenilaianEsaiBelumController::class, 'index'])->name('penilaian_esai_belum.index');
+    Route::get('/penilaian-esai-belum/{id}/edit', [PenilaianEsaiBelumController::class, 'edit'])->name('penilaian_esai_belum.edit');
+
+    //route penilaian esai sudah
+    Route::get('/penilaian-esai-sudah', [PenilaianEsaiSudahController::class, 'index'])->name('penilaian_esai_sudah.index');
+    Route::get('/penilaian-esai-sudah/{id}', [PenilaianEsaiSudahController::class, 'show'])->name('penilaian_esai_sudah.show');
+
+    // Penilaian Video Belum Routes (BARU)
+    Route::get('/penilaian-video-belum', [PenilaianVideoBelumController::class, 'index'])->name('penilaian_video_belum.index');
+    Route::get('/penilaian-video-belum/{id}/edit', [PenilaianVideoBelumController::class, 'edit'])->name('penilaian_video_belum.edit');
+
+    // Penilaian Video Sudah Routes (BARU)
+    Route::get('/penilaian-video-sudah', [PenilaianVideoSudahController::class, 'index'])->name('penilaian_video_sudah.index');
+    Route::get('/penilaian-video-sudah/{id}', [PenilaianVideoSudahController::class, 'show'])->name('penilaian_video_sudah.show');
     
 });
 

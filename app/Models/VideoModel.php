@@ -6,17 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class LaporanKustomModel extends Model
+class VideoModel extends Model
 {
     use HasFactory;
 
-    // protected $connection = 'perencanaan';
-    protected $table = 'laporan_kustom';
+    // protected $connection = 'db_parja';
+    protected $table = 'pengguna_video';
+    protected $primaryKey = 'id';
 
     protected $guarded = [];
 
     public $timestamps = false;
 
+    protected $casts = [
+        'tanggal_input' => 'datetime',
+        'tanggal_update' => 'datetime',
+    ];
 
     protected static function boot()
     {
@@ -33,5 +38,8 @@ class LaporanKustomModel extends Model
         });
     }
 
-
+    public function peserta()
+    {
+        return $this->belongsTo(PesertaModel::class, 'id_pengguna', 'id');
+    }
 }

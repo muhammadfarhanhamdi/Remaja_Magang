@@ -24,10 +24,11 @@
                     <tr class="text-center">
                         <th style="width: 5%">No</th>
                         <th>Nama</th>
+                        <th>NISN</th>
                         <th>Email</th>
-                        <th>Handphone</th>
-                        <th>Peran</th>
-                        <th style="width: 20%">Aksi</th>
+                        <th>Sekolah</th>
+                        <th>Dapil</th>
+                        <th style="width: 15%">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,9 +36,10 @@
                         <tr>
                             <td class="text-center">{{ $index + 1 }}</td>
                             <td>{{ $item->nama }}</td>
+                            <td>{{ $item->nisn ?? '-' }}</td>
                             <td>{{ $item->email }}</td>
-                            <td>{{ $item->handphone ?? '-' }}</td>
-                            <td class="text-center text-capitalize">{{ $item->peran }}</td>
+                            <td>{{ $item->asal_sekolah ?? '-' }}</td>
+                            <td>{{ $item->nama_dapil ?? '-' }}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center gap-2">
                                     <a href="{{ route('admin.peserta.edit', $item->id) }}" class="btn btn-sm btn-primary">
@@ -65,7 +67,6 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Diasumsikan SweetAlert2 (Swal) dimuat di layout utama
     $('.btn-hapus').on('click', function(e) {
         e.preventDefault();
         let form = $(this).closest('form');

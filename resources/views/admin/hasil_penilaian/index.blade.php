@@ -10,88 +10,94 @@
         <h4 class="main-title mb-0">Daftar Hasil Penilaian</h4>
     </div>
     <div>
-        <a href="{{ route('admin.hasil_penilaian.create') }}" class="btn btn-success">
-            <i class="ri-add-line"></i> Tambah Hasil Penilaian
-        </a>
     </div>
 </div>
 
 <div class="card">
     <div class="card-body">
+
+        <form method="GET" action="{{ route('admin.hasil_penilaian.index') }}" class="mb-3">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-text">Tahun</span>
+                        <select class="form-select" name="tahun" onchange="this.form.submit()">
+                            @php
+                                $startYear = 2020;
+                                $currentYear = date('Y');
+                            @endphp
+                            @for ($y = $currentYear; $y >= $startYear; $y--)
+                                <option value="{{ $y }}" {{ $y == $tahun ? 'selected' : '' }}>{{ $y }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+
         <div class="table-responsive">
             <table id="datatable" class="table table-striped table-bordered align-middle">
                 <thead class="table-light">
                     <tr class="text-center">
                         <th style="width: 5%">No</th>
-                        <th>Nama Peserta</th>
-                        <th>Kriteria</th>
-                        <th>Bobot</th>
-                        <th>Skor</th>
-                        <th>Nilai</th>
-                        <th style="width: 20%">Aksi</th>
+                        <th>NISN</th>
+                        <th>Nama</th>
+                        <th>Sekolah</th>
+                        <th>Dapil</th>
+                        <th>Ranking</th>
+                        <th>CV</th>
+                        <th>Esai</th>
+                        <th>Video</th>
+                        <th>Total</th>
+                        <th>Penilai</th>
+                        <th style="width: 10%">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($hasil_penilaian as $index => $item)
+                    @forelse($hasil_penilaian as $index => $item)
                         <tr>
-                            <td class="text-center">{{ $index + 1 }}</td>
-                            {{-- Diasumsikan relasi sudah berhasil dimuat --}}
-                            <td>{{ $item->peserta->nama ?? 'N/A' }}</td>
-                            <td>{{ $item->kriteria->kriteria ?? 'N/A' }}</td>
-                            <td class="text-center">{{ $item->bobot }}</td>
-                            <td class="text-center">{{ $item->skor }}</td>
-                            <td class="text-center">{{ $item->nilai }}</td>
+                            <td class="text-center">{{ $hasil_penilaian->firstItem() + $index }}</td>
+                            <td>{{ $item->nisn ?? 'N/A' }}</td>
+                            <td>{{ $item->nama ?? 'N/A' }}</td>
+                            <td>{{ $item->asal_sekolah ?? 'N/A' }}</td>
+                            <td>{{ $item->nama_dapil ?? 'N/A' }}</td>
+                            <td class="text-center">({{ $hasil_penilaian->firstItem() + $index }})</td>
+                            
+                            <td class="text-center">{{ number_format($item->nilai_cv, 2) }}</td>
+                            <td class="text-center">{{ number_format($item->nilai_esai, 3) }}</td>
+                            <td class="text-center">{{ number_format($item->nilai_video, 2) }}</td>
+                            <td class="text-center">{{ number_format($item->nilai_total, 3) }}</td>
+                            
+                            <td>
+                                {{ $item->user_cv ?? '-' }}<br>
+                                {{ $item->user_esai ?? '-' }}<br>
+                                {{ $item->user_video ?? '-' }}
+                            </td>
+                            
                             <td class="text-center">
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="{{ route('admin.hasil_penilaian.edit', $item->id) }}" class="btn btn-sm btn-primary">
-                                        <i class="ri-edit-line"></i> Edit
+                                    <a href="#" class="btn btn-sm btn-primary">
+                                        VIEW
                                     </a>
-
-                                    <form action="{{ route('admin.hasil_penilaian.destroy', $item->id) }}" method="POST" class="form-hapus" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-danger btn-hapus">
-                                            <i class="ri-delete-bin-line"></i> Hapus
-                                        </button>
-                                    </form>
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="12" class="text-center">Tidak ada data peserta untuk tahun {{ $tahun }}.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
+            
+            <div class="d-flex justify-content-center">
+                {{ $hasil_penilaian->appends(['tahun' => $tahun])->links() }}
+            </div>
+
         </div>
     </div>
 </div>
 @endsection
 
 @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    $('.btn-hapus').on('click', function(e) {
-        e.preventDefault();
-        let form = $(this).closest('form');
-        if (typeof Swal !== 'undefined') {
-            Swal.fire({
-                title: 'Yakin ingin menghapus?',
-                text: 'Data yang dihapus tidak dapat dikembalikan!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
-            });
-        } else {
-            if (confirm('Yakin ingin menghapus data ini?')) {
-                form.submit();
-            }
-        }
-    });
-});
-</script>
 @endpush

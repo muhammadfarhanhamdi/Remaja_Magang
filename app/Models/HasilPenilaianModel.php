@@ -11,7 +11,7 @@ class HasilPenilaianModel extends Model
     use HasFactory;
 
     // protected $connection = 'db_parja';
-    protected $table = 'pengguna_total';
+    protected $table = 'pengguna';
     protected $primaryKey = 'id';
 
     protected $guarded = [];

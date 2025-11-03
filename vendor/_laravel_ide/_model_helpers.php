@@ -1603,21 +1603,129 @@ namespace App\Models {
      * @property string|null $user_update
      * @property \Illuminate\Support\Carbon|null $tanggal_input
      * @property string|null $user_input
+     * @property bool|null $status_lama
      * @property bool|null $status
-     * @property float|null $nilai
-     * @property float|null $skor
-     * @property integer|null $bobot
-     * @property mixed $id_kriteria
-     * @property mixed $id_pengguna
+     * @property bool|null $status_lolos
+     * @property bool|null $status_video
+     * @property bool|null $status_esai
+     * @property bool|null $status_cv
+     * @property bool|null $status_pernyataan
+     * @property string|null $catatan_video
+     * @property string|null $catatan_esai
+     * @property string|null $catatan_cv
+     * @property string|null $sumber_informasi_lainnya
+     * @property string|null $sumber_informasi
+     * @property string|null $user_video
+     * @property string|null $user_esai
+     * @property string|null $user_cv
+     * @property mixed $nilai_total
+     * @property mixed $nilai_video
+     * @property mixed $nilai_esai
+     * @property mixed $nilai_cv
+     * @property bool|null $status_lokasi_video
+     * @property bool|null $status_durasi_video
+     * @property mixed $nilai_turnitin
+     * @property string|null $peran
+     * @property string|null $credential_expire
+     * @property string|null $credential_access
+     * @property string|null $sandi_random
+     * @property string|null $sandi
+     * @property string|null $short_quiz
+     * @property mixed $file_size
+     * @property string|null $file_type
+     * @property string|null $file_name
+     * @property string|null $akun_tiktok
+     * @property string|null $akun_twitter
+     * @property string|null $akun_facebook
+     * @property string|null $akun_youtube
+     * @property string|null $akun_instagram
+     * @property string|null $email
+     * @property string|null $handphone_wali_murid
+     * @property string|null $handphone_orangtua
+     * @property string|null $handphone
+     * @property string|null $telepon_sekolah
+     * @property string|null $alamat_sekolah
+     * @property string|null $kelas_sekolah
+     * @property string|null $tipe_sekolah
+     * @property string|null $nama_dapil
+     * @property mixed $id_dapil
+     * @property string|null $nama_kabupaten
+     * @property mixed $id_kabupaten
+     * @property string|null $nama_provinsi
+     * @property mixed $id_provinsi
+     * @property string|null $asal_sekolah
+     * @property string|null $alamat_rumah
+     * @property string|null $ukuran_pakaian
+     * @property string|null $tanggal_lahir
+     * @property string|null $tempat_lahir
+     * @property string|null $jenis_kelamin
+     * @property string|null $nisn
+     * @property string|null $nama_panggilan
+     * @property string $nama
+     * @property string|null $tanggal_pendaftaran
      * @property int $id
      * @property-read \App\Models\PesertaModel $peserta
      * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereId($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereIdPengguna($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereIdKriteria($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereBobot($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereSkor($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereNilai($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereTanggalPendaftaran($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereNama($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereNamaPanggilan($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereNisn($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereJenisKelamin($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereTempatLahir($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereTanggalLahir($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereUkuranPakaian($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereAlamatRumah($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereAsalSekolah($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereIdProvinsi($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereNamaProvinsi($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereIdKabupaten($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereNamaKabupaten($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereIdDapil($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereNamaDapil($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereTipeSekolah($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereKelasSekolah($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereAlamatSekolah($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereTeleponSekolah($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereHandphone($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereHandphoneOrangtua($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereHandphoneWaliMurid($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereEmail($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereAkunInstagram($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereAkunYoutube($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereAkunFacebook($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereAkunTwitter($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereAkunTiktok($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereFileName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereFileType($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereFileSize($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereShortQuiz($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereSandi($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereSandiRandom($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereCredentialAccess($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereCredentialExpire($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel wherePeran($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereNilaiTurnitin($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereStatusDurasiVideo($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereStatusLokasiVideo($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereNilaiCv($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereNilaiEsai($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereNilaiVideo($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereNilaiTotal($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereUserCv($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereUserEsai($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereUserVideo($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereSumberInformasi($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereSumberInformasiLainnya($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereCatatanCv($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereCatatanEsai($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereCatatanVideo($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereStatusPernyataan($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereStatusCv($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereStatusEsai($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereStatusVideo($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereStatusLolos($value)
      * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereStatus($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereStatusLama($value)
      * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereUserInput($value)
      * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereTanggalInput($value)
      * @method static \Illuminate\Database\Eloquent\Builder<HasilPenilaianModel>|HasilPenilaianModel whereUserUpdate($value)

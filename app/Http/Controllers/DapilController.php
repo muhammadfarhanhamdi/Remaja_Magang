@@ -23,7 +23,8 @@ class DapilController extends Controller
 
     public function create()
     {
-        return view('admin.dapil.create');
+        $provinces = $this->service->getProvinces();
+        return view('admin.dapil.create', compact('provinces'));
     }
 
     public function store(Request $request)
@@ -43,7 +44,8 @@ class DapilController extends Controller
     public function edit($id)
     {
         $dapil = $this->service->getById($id);
-        return view('admin.dapil.edit', compact('dapil'));
+        $provinces = $this->service->getProvinces();
+        return view('admin.dapil.edit', compact('dapil', 'provinces'));
     }
 
     public function update(Request $request, $id)

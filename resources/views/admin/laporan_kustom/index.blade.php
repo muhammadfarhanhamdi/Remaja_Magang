@@ -36,7 +36,7 @@
                             <td class="text-monospace small">{{ Str::limit($item->sql, 100) }}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="{{ route('admin.laporan_kustom.view', $item->id) }}" class="btn btn-sm btn-info">
+                                    <a href="{{ route('admin.laporan_kustom.lihat', $item->id) }}" class="btn btn-sm btn-info">
                                         <i class="ri-eye-line"></i> Lihat Hasil
                                     </a>
                                     <a href="{{ route('admin.laporan_kustom.edit', $item->id) }}" class="btn btn-sm btn-primary">

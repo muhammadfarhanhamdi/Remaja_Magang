@@ -250,7 +250,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/laporan-kustom/{id}/edit', [LaporanKustomController::class, 'edit'])->name('laporan_kustom.edit');
     Route::put('/laporan-kustom/{id}', [LaporanKustomController::class, 'update'])->name('laporan_kustom.update');
     Route::delete('/laporan-kustom/{id}', [LaporanKustomController::class, 'destroy'])->name('laporan_kustom.destroy');
-    Route::get('/laporan-kustom/{id}/lihat', [LaporanKustomController::class, 'lihat'])->name('laporan_kustom.view');
+    Route::get('/laporan-kustom/{id}/lihat', [LaporanKustomController::class, 'lihat'])->name('laporan_kustom.lihat');
 
     //route penilaian cv belum
     Route::get('/penilaian-cv-belum', [PenilaianCvBelumController::class, 'index'])->name('penilaian_cv_belum.index');

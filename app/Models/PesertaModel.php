@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Dapil;
+use App\Models\PenilaianModel;
+use App\Models\PenggunaDataModel;
 
 class PesertaModel extends Model
 {
@@ -51,6 +53,11 @@ class PesertaModel extends Model
     public function penilaian()
     {
         return $this->hasMany(PenilaianModel::class, 'id_pengguna', 'id');
+    }
+
+    public function dataCv()
+    {
+        return $this->hasMany(PenggunaDataModel::class, 'id_pengguna', 'id');
     }
 
 }

@@ -255,6 +255,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     //route penilaian cv belum
     Route::get('/penilaian-cv-belum', [PenilaianCvBelumController::class, 'index'])->name('penilaian_cv_belum.index');
     Route::get('/penilaian-cv-belum/{id}/edit', [PenilaianCvBelumController::class, 'edit'])->name('penilaian_cv_belum.edit');
+    Route::put('/penilaian-cv-belum/{id}', [PenilaianCvBelumController::class, 'update'])->name('penilaian_cv_belum.update');
 
     //route penilaian cv sudah
     Route::get('/penilaian-cv-sudah', [PenilaianCvSudahController::class, 'index'])->name('penilaian_cv_sudah.index');
@@ -267,6 +268,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     //route penilaian esai sudah
     Route::get('/penilaian-esai-sudah', [PenilaianEsaiSudahController::class, 'index'])->name('penilaian_esai_sudah.index');
     Route::get('/penilaian-esai-sudah/{id}', [PenilaianEsaiSudahController::class, 'show'])->name('penilaian_esai_sudah.show');
+    Route::delete('/penilaian-cv-sudah/{id}', [PenilaianCvSudahController::class, 'destroy'])->name('penilaian_cv_sudah.destroy');
 
     // Penilaian Video Belum Routes (BARU)
     Route::get('/penilaian-video-belum', [PenilaianVideoBelumController::class, 'index'])->name('penilaian_video_belum.index');

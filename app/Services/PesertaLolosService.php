@@ -8,30 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class PesertaLolosService
 {
-    public function getAllActiveLolos()
+    public function getAllActiveLolos(Request $request)
     {
-        return PesertaModel::where('status', 1)
-            ->where('status_lolos', 1)
-            ->orderByDesc('tanggal_pendaftaran')
-            ->get();
-    }
+        $tahun = $request->get('tahun', date('Y'));
 
-    public function getById($id)
-    {
-        return PesertaModel::where('id', $id)
+        return PesertaModel::whereYear('tanggal_pendaftaran', $tahun)
             ->where('status', 1)
             ->where('status_lolos', 1)
-            ->firstOrFail();
-    }
-
-    public function validatePesertaLolosData(Request $request)
-    {
-        return $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'required|email|max:100',
-        ], [
-            'nama.required' => 'Nama peserta harus diisi.',
-            'email.required' => 'Email harus diisi.',
-        ]);
+            ->orderByDesc('nilai_total') 
+            ->paginate(20);
     }
 }

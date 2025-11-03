@@ -15,10 +15,12 @@ class PesertaLolosSeleksiController extends Controller
         $this->service = $service;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $peserta_lolos_seleksi = $this->service->getAllActiveLolosSeleksi();
-        return view('admin.peserta_lolos_seleksi.index', compact('peserta_lolos_seleksi'));
+        $tahun = $request->get('tahun', date('Y'));
+        $peserta_lolos_seleksi = $this->service->getAllActiveLolosSeleksi($request);
+        
+        return view('admin.peserta_lolos_seleksi.index', compact('peserta_lolos_seleksi', 'tahun'));
     }
 
     public function edit($id)

@@ -15,21 +15,10 @@ class PesertaLolosController extends Controller
         $this->service = $service;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $peserta_lolos = $this->service->getAllActiveLolos();
-        return view('admin.peserta_lolos.index', compact('peserta_lolos'));
-    }
-
-    public function edit($id)
-    {
-        try {
-            $peserta = $this->service->getById($id);
-            // Anda dapat mengarahkan ke halaman edit Peserta utama atau view detail khusus
-            return view('admin.peserta_lolos.edit', compact('peserta')); 
-        } catch (\Exception $e) {
-            Alert::error('Gagal', 'Data peserta lolos tidak ditemukan: ' . $e->getMessage());
-            return back();
-        }
+        $tahun = $request->get('tahun', date('Y'));
+        $peserta_lolos = $this->service->getAllActiveLolos($request);
+        return view('admin.peserta_lolos.index', compact('peserta_lolos', 'tahun'));
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Dapil;
 use App\Models\PenilaianModel;
 use App\Models\PenggunaDataModel;
 use App\Models\PenggunaEsaiModel;
+use App\Models\PenggunaVideoModel;
 
 class PesertaModel extends Model
 {
@@ -64,6 +65,11 @@ class PesertaModel extends Model
     public function dataEsai()
     {
         return $this->hasOne(PenggunaEsaiModel::class, 'id_pengguna', 'id');
+    }
+
+    public function dataVideo()
+    {
+        return $this->hasOne(PenggunaVideoModel::class, 'id_pengguna', 'id');
     }
 
 }

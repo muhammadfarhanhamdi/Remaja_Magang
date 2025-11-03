@@ -1,52 +1,103 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <div>
-        <ol class="breadcrumb fs-sm mb-1">
-            <li class="breadcrumb-item">Data Penilaian Video</li>
-            <li class="breadcrumb-item active">Daftar Penilaian Video (Belum)</li>
-        </ol>
-        <h4 class="main-title mb-0">Daftar Video yang Belum Dinilai</h4>
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table id="datatable" class="table table-striped table-bordered align-middle">
-                <thead class="table-light">
-                    <tr class="text-center">
-                        <th style="width: 5%">No</th>
-                        <th>Nama Peserta</th>
-                        <th>Judul Video</th>
-                        <th>Media Sosial</th>
-                        <th>Status</th>
-                        <th style="width: 15%">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($video_belum as $index => $item)
-                        <tr>
-                            <td class="text-center">{{ $index + 1 }}</td>
-                            <td>{{ $item->peserta->nama ?? 'Peserta Tidak Ditemukan' }}</td>
-                            <td>{{ $item->judul }}</td>
-                            <td class="text-center">{{ $item->media_sosial }}</td>
-                            <td class="text-center">
-                                <span class="badge bg-danger">BELUM DINILAI</span>
-                            </td>
-                            <td class="text-center">
-                                <div class="d-flex justify-content-center gap-2">
-                                    <a href="{{ route('admin.penilaian_video_belum.edit', $item->id) }}" class="btn btn-sm btn-warning">
-                                        <i class="ri-edit-line"></i> Mulai Nilai
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <div>
+            <ol class="breadcrumb fs-sm mb-1">
+                <li class="breadcrumb-item">Data Penilaian Video</li>
+                <li class="breadcrumb-item active">Daftar Penilaian Video (Belum)</li>
+            </ol>
+            <h4 class="main-title mb-0">Daftar Video yang Belum Dinilai</h4>
         </div>
     </div>
-</div>
+
+    <div class="card">
+        <div class="card-body">
+
+            <form method="GET" action="{{ route('admin.penilaian_video_belum.index') }}" class="mb-3">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-text">Tahun</span>
+                            <select class="form-select" name="tahun" onchange="this.form.submit()">
+                                @php
+                                    $startYear = 2020;
+                                    $currentYear = date('Y');
+                                @endphp
+                                @for ($y = $currentYear; $y >= $startYear; $y--)
+                                    <option value="{{ $y }}" {{ $y == $tahun ? 'selected' : '' }}>
+                                        {{ $y }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr class="text-center">
+                            <th style="width: 5%">No</th>
+                            <th>ID Peserta</th>
+                            <th>NISN</th>
+                            <th>Nama</th>
+                            <th>Sekolah</th>
+                            <th>Dapil</th>
+                            <th>Ranking</th>
+                            <th>Nilai CV</th>
+                            <th>Nilai Video</th>
+                            <th>Status Video</th>
+                            <th>Penilai</th>
+                            <th style="width: 15%">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($peserta_video_belum as $index => $item)
+                            <tr>
+                                <td class="text-center">{{ $peserta_video_belum->firstItem() + $index }}</td>
+                                <td class="text-center">{{ $item->id }}</td>
+                                <td>{{ $item->nisn ?? 'N/A' }}</td>
+                                <td>{{ $item->nama ?? 'N/A' }}</td>
+                                <td>{{ $item->asal_sekolah ?? 'N/A' }}</td>
+                                <td>{{ $item->nama_dapil ?? 'N/A' }}</td>
+                                <td class="text-center">({{ $peserta_video_belum->firstItem() + $index }})</td>
+                                <td class="text-center">{{ number_format($item->nilai_cv ?? 0, 2) }}</td>
+                                <td class="text-center">{{ number_format($item->nilai_video ?? 0, 2) }}</td>
+                                <td class="text-center">
+                                    @if ($item->status_video == 1)
+                                        <span class="text-success fs-lg"><i class="ri-check-line"></i></span>
+                                    @else
+                                        <span class="text-danger fs-lg"><i class="ri-close-line"></i></span>
+                                    @endif
+                                </td>
+                                <td>{{ $item->user_video ?? '-' }}</td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="{{ route('admin.penilaian_video_belum.edit', $item->id) }}"
+                                            class="btn btn-sm btn-primary">
+                                            Penilaian Video
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="12" class="text-center">Tidak ada data Video yang perlu dinilai untuk tahun
+                                    {{ $tahun }}.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+
+                <div class="d-flex justify-content-center">
+                    {{ $peserta_video_belum->appends(['tahun' => $tahun])->links() }}
+                </div>
+
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('scripts')
+@endpush

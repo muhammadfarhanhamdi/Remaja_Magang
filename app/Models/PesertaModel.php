@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Dapil;
 use App\Models\PenilaianModel;
 use App\Models\PenggunaDataModel;
+use App\Models\PenggunaEsaiModel;
 
 class PesertaModel extends Model
 {
@@ -58,6 +59,11 @@ class PesertaModel extends Model
     public function dataCv()
     {
         return $this->hasMany(PenggunaDataModel::class, 'id_pengguna', 'id');
+    }
+    
+    public function dataEsai()
+    {
+        return $this->hasOne(PenggunaEsaiModel::class, 'id_pengguna', 'id');
     }
 
 }

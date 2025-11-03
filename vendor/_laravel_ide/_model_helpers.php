@@ -4546,6 +4546,9 @@ namespace App\Models {
      * @property string $nama
      * @property \Illuminate\Support\Carbon|null $tanggal_pendaftaran
      * @property int $id
+     * @property-read \App\Models\DapilModel $dapil
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PenilaianModel> $penilaian
+     * @property-read int|null $penilaian_count
      * @method static \Illuminate\Database\Eloquent\Builder<PesertaModel>|PesertaModel whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PesertaModel>|PesertaModel whereTanggalPendaftaran($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PesertaModel>|PesertaModel whereNama($value)

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\PenilaianService;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; // <-- TAMBAHKAN INI
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PenilaianController extends Controller
@@ -15,15 +15,16 @@ class PenilaianController extends Controller
         $this->service = $service;
     }
 
-    public function index()
+    public function index(Request $request) 
     {
-        $penilaian = $this->service->getAllActive();
-        return view('admin.penilaian.index', compact('penilaian'));
+        $tahun = $request->get('tahun', date('Y'));
+        $peserta = $this->service->getAllActive($request); 
+        
+        return view('admin.penilaian.index', compact('peserta', 'tahun'));
     }
 
     public function create()
     {
-        // Biasanya di sini akan memuat daftar Pengguna dan Skoring untuk dipilih
         return view('admin.penilaian.create');
     }
 

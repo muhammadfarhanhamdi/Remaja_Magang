@@ -9,13 +9,32 @@
         </ol>
         <h4 class="main-title mb-0">Daftar Peserta (Lolos Seleksi)</h4>
     </div>
-    {{-- Biasanya tombol export/cetak hasil seleksi ada di sini --}}
 </div>
 
 <div class="card">
     <div class="card-body">
+
+        <form method="GET" action="{{ route('admin.peserta_lolos_seleksi.index') }}" class="mb-3">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-text">Tahun</span>
+                        <select class="form-select" name="tahun" onchange="this.form.submit()">
+                            @php
+                                $startYear = 2020;
+                                $currentYear = date('Y');
+                            @endphp
+                            @for ($y = $currentYear; $y >= $startYear; $y--)
+                                <option value="{{ $y }}" {{ $y == $tahun ? 'selected' : '' }}>{{ $y }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+
         <div class="table-responsive">
-            <table id="datatable" class="table table-striped table-bordered align-middle">
+            <table class="table table-striped table-bordered align-middle">
                 <thead class="table-light">
                     <tr class="text-center">
                         <th style="width: 5%">No</th>
@@ -27,12 +46,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($peserta_lolos_seleksi as $index => $item)
+                    @forelse($peserta_lolos_seleksi as $index => $item)
                         <tr>
-                            <td class="text-center">{{ $index + 1 }}</td>
+                            <td class="text-center">{{ $peserta_lolos_seleksi->firstItem() + $index }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->asal_sekolah ?? '-' }}</td>
-                            <td class="text-center fw-bold">{{ number_format($item->nilai_total, 2) }}</td>
+                            <td class="text-center fw-bold">{{ number_format($item->nilai_total, 3) }}</td>
                             <td class="text-center">
                                 @if($item->status_lolos == 1)
                                     <span class="badge bg-success">Lolos Seleksi</span>
@@ -42,16 +61,28 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="{{ route('admin.peserta_lolos_seleksi.edit', $item->id) }}" class="btn btn-sm btn-primary">
+                                    <a href="{{ route('admin.peserta.edit', $item->id) }}" class="btn btn-sm btn-primary">
                                         <i class="ri-eye-line"></i> Detail
                                     </a>
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center">Tidak ada data peserta lolos seleksi untuk tahun {{ $tahun }}.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
+
+            <div class="d-flex justify-content-center">
+                {{ $peserta_lolos_seleksi->appends(['tahun' => $tahun])->links() }}
+            </div>
+
         </div>
     </div>
 </div>
 @endsection
+
+@push('scripts')
+@endpush

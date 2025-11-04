@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\HasilPenilaianService;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; // <-- TAMBAHKAN
 use RealRashid\SweetAlert\Facades\Alert;
 
 class HasilPenilaianController extends Controller
@@ -15,10 +15,12 @@ class HasilPenilaianController extends Controller
         $this->service = $service;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $hasil_penilaian = $this->service->getAllActive();
-        return view('admin.hasil_penilaian.index', compact('hasil_penilaian'));
+        $tahun = $request->get('tahun', date('Y'));
+        $hasil_penilaian = $this->service->getAllActive($request);
+        
+        return view('admin.hasil_penilaian.index', compact('hasil_penilaian', 'tahun'));
     }
 
     public function create()

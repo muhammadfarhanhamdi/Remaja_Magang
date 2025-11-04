@@ -7,12 +7,15 @@ use Illuminate\Http\Request;
 
 class PesertaLolosSeleksiService
 {
-    public function getAllActiveLolosSeleksi()
+    public function getAllActiveLolosSeleksi(Request $request)
     {
-        return PesertaModel::where('status', 1)
+        $tahun = $request->get('tahun', date('Y'));
+
+        return PesertaModel::whereYear('tanggal_pendaftaran', $tahun)
+            ->where('status', 1)
             ->where('status_lolos', 1)
             ->orderByDesc('nilai_total')
-            ->get();
+            ->paginate(20);
     }
 
     public function getById($id)
@@ -22,5 +25,4 @@ class PesertaLolosSeleksiService
             ->where('status_lolos', 1)
             ->firstOrFail();
     }
-
 }

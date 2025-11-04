@@ -7,7 +7,7 @@
             <li class="breadcrumb-item">Data Referensi</li>
             <li class="breadcrumb-item"><a href="{{ route('admin.dapil.index') }}">Daftar Dapil</a></li>
         </ol>
-        <h4 class="main-title mb-0">Edit Dapil</h4>
+        <h4 class="main-title mb-0">Edit Dapil: {{ $dapil->dapil }}</h4>
     </div>
 </div>
 
@@ -18,25 +18,25 @@
             @method('PUT')
 
             <div class="mb-4 d-flex align-items-start gap-2">
-                <label for="id_provinsi" class="form-label fw-bold" style="width:150px; margin-top:8px;">ID Provinsi</label>
+                <label for="id_provinsi" class="form-label fw-bold" style="width:150px; margin-top:8px;">Provinsi</label>
                 <div class="d-flex flex-row gap-2">
-                    <input type="number" name="id_provinsi" id="id_provinsi" class="form-control @error('id_provinsi') is-invalid @enderror"
-                        value="{{ old('id_provinsi', $dapil->id_provinsi) }}" style="width:500px;" required>
+                    <select name="id_provinsi" id="id_provinsi" class="form-select @error('id_provinsi') is-invalid @enderror" style="width:500px;" required>
+                        <option value="">Pilih Provinsi</option>
+                        @php
+                            $current_value = $dapil->id_provinsi . '|' . $dapil->provinsi;
+                        @endphp
+                        
+                        @foreach($provinces as $province)
+                            @php $option_value = $province['id'] . '|' . $province['name']; @endphp
+                            <option value="{{ $option_value }}" 
+                                {{ old('id_provinsi', $current_value) == $option_value ? 'selected' : '' }}>
+                                {{ $province['name'] }}
+                            </option>
+                        @endforeach
+                    </select>
                     <span class="text-danger">*</span>
                 </div>
                 @error('id_provinsi')
-                    <div class="invalid-feedback d-block ms-2">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-4 d-flex align-items-start gap-2">
-                <label for="provinsi" class="form-label fw-bold" style="width:150px; margin-top:8px;">Nama Provinsi</label>
-                <div class="d-flex flex-row gap-2">
-                    <input type="text" name="provinsi" id="provinsi" class="form-control @error('provinsi') is-invalid @enderror"
-                        value="{{ old('provinsi', $dapil->provinsi) }}" style="width:500px;" required>
-                    <span class="text-danger">*</span>
-                </div>
-                @error('provinsi')
                     <div class="invalid-feedback d-block ms-2">{{ $message }}</div>
                 @enderror
             </div>

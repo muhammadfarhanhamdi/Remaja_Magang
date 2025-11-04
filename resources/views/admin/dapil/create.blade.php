@@ -17,25 +17,22 @@
             @csrf
 
             <div class="mb-4 d-flex align-items-start gap-2">
-                <label for="id_provinsi" class="form-label fw-bold" style="width:150px; margin-top:8px;">ID Provinsi</label>
+                <label for="id_provinsi" class="form-label fw-bold" style="width:150px; margin-top:8px;">Provinsi</label>
                 <div class="d-flex flex-row gap-2">
-                    <input type="number" name="id_provinsi" id="id_provinsi" class="form-control @error('id_provinsi') is-invalid @enderror"
-                        placeholder="Masukkan ID Provinsi" value="{{ old('id_provinsi') }}" style="width:500px;" required>
+                    <select name="id_provinsi" id="id_provinsi" class="form-select @error('id_provinsi') is-invalid @enderror" style="width:500px;" required>
+                        <option value="">Pilih Provinsi</option>
+                        
+                        @foreach($provinces as $province)
+                            @php $option_value = $province['id'] . '|' . $province['name']; @endphp
+                            <option value="{{ $option_value }}" 
+                                {{ old('id_provinsi') == $option_value ? 'selected' : '' }}>
+                                {{ $province['name'] }}
+                            </option>
+                        @endforeach
+                    </select>
                     <span class="text-danger">*</span>
                 </div>
                 @error('id_provinsi')
-                    <div class="invalid-feedback d-block ms-2">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-4 d-flex align-items-start gap-2">
-                <label for="provinsi" class="form-label fw-bold" style="width:150px; margin-top:8px;">Nama Provinsi</label>
-                <div class="d-flex flex-row gap-2">
-                    <input type="text" name="provinsi" id="provinsi" class="form-control @error('provinsi') is-invalid @enderror"
-                        placeholder="Masukkan nama provinsi" value="{{ old('provinsi') }}" style="width:500px;" required>
-                    <span class="text-danger">*</span>
-                </div>
-                @error('provinsi')
                     <div class="invalid-feedback d-block ms-2">{{ $message }}</div>
                 @enderror
             </div>

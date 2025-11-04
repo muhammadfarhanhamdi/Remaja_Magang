@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\PenilaianVideoSudahService;
-use App\Models\PesertaModel;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -16,22 +15,36 @@ class PenilaianVideoSudahController extends Controller
         $this->service = $service;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $video_sudah = $this->service->getAllSudahDinilai();
-        return view('admin.penilaian_video_sudah.index', compact('video_sudah'));
+        $tahun = $request->get('tahun', date('Y'));
+        $peserta_video_sudah = $this->service->getAllSudahDinilai($request);
+        
+        return view('admin.penilaian_video_sudah.index', compact('peserta_video_sudah', 'tahun'));
     }
 
     public function show($id)
     {
         try {
-            $video = $this->service->getById($id);
-            $peserta = PesertaModel::find($video->id_pengguna);
-
-            return view('admin.penilaian_video_sudah.show', compact('video', 'peserta'));
+            $peserta = $this->service->getById($id);
+            
+            return redirect()->route('admin.penilaian_video_belum.edit', $peserta->id);
 
         } catch (\Exception $e) {
             Alert::error('Gagal', 'Data Hasil Penilaian Video tidak ditemukan: ' . $e->getMessage());
+            return back();
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $this->service->batalPenilaian($id);
+            Alert::success('Berhasil', 'Penilaian Video telah dibatalkan. Peserta dikembalikan ke daftar "Belum Dinilai".');
+            return redirect()->route('admin.penilaian_video_sudah.index');
+
+        } catch (\Exception $e) {
+            Alert::error('Gagal', 'Terjadi kesalahan: ' . $e->getMessage());
             return back();
         }
     }

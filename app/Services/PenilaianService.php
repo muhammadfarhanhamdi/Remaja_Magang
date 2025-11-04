@@ -3,17 +3,26 @@
 namespace App\Services;
 
 use App\Models\PenilaianModel;
+use App\Models\PesertaModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PenilaianService
 {
-    public function getAllActive()
+    public function getAllActive(Request $request)
     {
-        // Mengambil semua data penilaian aktif
-        return PenilaianModel::where('status', 1)
-            ->orderByDesc('tanggal_input')
-            ->get();
+        $tahun = $request->get('tahun', date('Y'));
+
+        return PesertaModel::with([ 
+            'penilaian' => function ($query) {
+                $query->where('status', 1); 
+            },
+            'dapil' 
+        ])
+            ->whereYear('tanggal_pendaftaran', $tahun) 
+            ->where('status', 1)     
+            ->orderBy('nama', 'asc')
+            ->paginate(20); 
     }
 
     public function getById($id)
@@ -25,15 +34,14 @@ class PenilaianService
 
     public function validatePenilaianData(Request $request)
     {
-        // Validasi dasar untuk kolom kunci di pengguna_nilai
         return $request->validate([
-            'id_pengguna' => 'required|integer|exists:pengguna,id', // Memastikan ID pengguna ada
-            'id_skoring' => 'required|integer|exists:skoring,id',   // Memastikan ID skoring ada
+            'id_pengguna' => 'required|integer|exists:pengguna,id', 
+            'id_skoring' => 'required|integer|exists:skoring,id',   
             'bobot' => 'required|numeric',
             'skor' => 'required|numeric',
             'nilai' => 'required|numeric',
         ], [
-            'id_pengguna.required' => 'ID Pengguna harus diisi.',
+            'id_pengguna.required' => 'ID Peserta harus diisi.',
             'id_skoring.required' => 'ID Skoring harus diisi.',
             'bobot.required' => 'Bobot harus diisi.',
             'skor.required' => 'Skor harus diisi.',

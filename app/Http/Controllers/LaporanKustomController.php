@@ -31,9 +31,9 @@ class LaporanKustomController extends Controller
         try {
             $validated = $this->service->validateLaporanData($request);
             $laporan = $this->service->createLaporan($validated);
-
             Alert::success('Berhasil', 'Laporan Kustom berhasil ditambahkan.');
-            return redirect()->route('admin.laporan_kustom.index');
+            return redirect()->route('admin.laporan_kustom.edit', $laporan->id);
+
         } catch (\Exception $e) {
             Alert::error('Gagal', 'Terjadi kesalahan: ' . $e->getMessage());
             return back()->withInput();
@@ -42,8 +42,9 @@ class LaporanKustomController extends Controller
 
     public function edit($id)
     {
-        $laporan = $this->service->getById($id);
-        return view('admin.laporan_kustom.edit', compact('laporan'));
+        $data = $this->service->getDataForLaporanView($id);
+
+        return view('admin.laporan_kustom.edit', $data);
     }
 
     public function update(Request $request, $id)
@@ -53,25 +54,25 @@ class LaporanKustomController extends Controller
             $this->service->updateLaporan($id, $validated);
 
             Alert::success('Berhasil', 'Laporan Kustom berhasil diperbarui.');
+            
             return redirect()->route('admin.laporan_kustom.index');
+
         } catch (\Exception $e) {
             Alert::error('Gagal', 'Terjadi kesalahan: ' . $e->getMessage());
             return back()->withInput();
         }
     }
+    
     public function lihat($id)
     {
-        try {
-            $laporan = $this->service->getById($id);
-            $results = $this->service->executeQuery($laporan->sql);
-            
-            $columns = $results->isNotEmpty() ? array_keys((array) $results->first()) : [];
+        $data = $this->service->getDataForLaporanView($id);
 
-            return view('admin.laporan_kustom.lihat', compact('laporan', 'results', 'columns'));
-        } catch (\Exception $e) {
-            Alert::error('Gagal', 'Gagal menjalankan query: ' . $e->getMessage());
+        if ($data['queryError']) {
+            Alert::error('Gagal', 'Gagal menjalankan query: ' . $data['queryError']);
             return back();
         }
+
+        return view('admin.laporan_kustom.lihat', $data);
     }
 
     public function destroy($id)

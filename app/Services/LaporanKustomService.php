@@ -10,6 +10,30 @@ use Illuminate\Support\Facades\Validator;
 
 class LaporanKustomService
 {
+    public function getDataForLaporanView($id)
+    {
+        $laporan = $this->getById($id);
+
+        $results = collect();
+        $columns = [];
+        $queryError = null;
+
+        try {
+            $results = $this->executeQuery($laporan->sql);
+            $columns = $results->isNotEmpty() ? array_keys((array) $results->first()) : [];
+
+        } catch (\Exception $e) {
+            $queryError = $e->getMessage();
+        }
+
+        return [
+            'laporan' => $laporan,
+            'results' => $results,
+            'columns' => $columns,
+            'queryError' => $queryError,
+        ];
+    }
+
     public function getAllActive()
     {
         return LaporanKustomModel::where('status', 1)
@@ -67,8 +91,9 @@ class LaporanKustomService
 
     public function executeQuery($sql)
     {
-        $connection = LaporanKustomModel::getConnectionName(); 
-        
+        $modelInstance = new LaporanKustomModel();
+        $connection = $modelInstance->getConnectionName();
+                
         try {
             $results = DB::connection($connection)->select($sql);
             return collect($results);

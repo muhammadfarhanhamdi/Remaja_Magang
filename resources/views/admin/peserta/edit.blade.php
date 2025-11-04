@@ -7,7 +7,7 @@
             <li class="breadcrumb-item">Data Peserta</li>
             <li class="breadcrumb-item"><a href="{{ route('admin.peserta.index') }}">Daftar Peserta</a></li>
         </ol>
-        <h4 class="main-title mb-0">Edit Peserta</h4>
+        <h4 class="main-title mb-0">Edit Peserta: {{ $peserta->nama }}</h4>
     </div>
 </div>
 
@@ -30,6 +30,19 @@
                 @enderror
             </div>
             
+            <div class="mb-4 d-flex align-items-start gap-2">
+                <label for="nisn" class="form-label fw-bold" style="width:150px; margin-top:8px;">NISN</label>
+                <div class="d-flex flex-row gap-2">
+                    <input type="text" name="nisn" id="nisn" 
+                        class="form-control @error('nisn') is-invalid @enderror"
+                        value="{{ old('nisn', $peserta->nisn) }}" style="width:500px;">
+                    <span class="text-danger"></span>
+                </div>
+                @error('nisn')
+                    <div class="invalid-feedback d-block ms-2">{{ $message }}</div>
+                @enderror
+            </div>
+
             <div class="mb-4 d-flex align-items-start gap-2">
                 <label for="email" class="form-label fw-bold" style="width:150px; margin-top:8px;">Email</label>
                 <div class="d-flex flex-row gap-2">
@@ -54,8 +67,49 @@
                     <div class="invalid-feedback d-block ms-2">{{ $message }}</div>
                 @enderror
             </div>
+            
+            <div class="mb-4 d-flex align-items-start gap-2">
+                <label for="asal_sekolah" class="form-label fw-bold" style="width:150px; margin-top:8px;">Asal Sekolah</label>
+                <div class="d-flex flex-row gap-2">
+                    <input type="text" name="asal_sekolah" id="asal_sekolah" class="form-control @error('asal_sekolah') is-invalid @enderror"
+                        value="{{ old('asal_sekolah', $peserta->asal_sekolah) }}" style="width:500px;">
+                    <span class="text-danger"></span>
+                </div>
+                @error('asal_sekolah')
+                    <div class="invalid-feedback d-block ms-2">{{ $message }}</div>
+                @enderror
+            </div>
 
             <div class="mb-4 d-flex align-items-start gap-2">
+                <label for="jenis_kelamin" class="form-label fw-bold" style="width:150px; margin-top:8px;">Jenis Kelamin</label>
+                <div class="d-flex flex-row gap-2">
+                    <select name="jenis_kelamin" id="jenis_kelamin" class="form-select @error('jenis_kelamin') is-invalid @enderror" style="width:500px;">
+                        @php $oldJenisKelamin = old('jenis_kelamin', $peserta->jenis_kelamin); @endphp
+                        <option value="">Pilih Jenis Kelamin</option>
+                        <option value="l" {{ $oldJenisKelamin == 'l' ? 'selected' : '' }}>Laki-laki</option>
+                        <option value="p" {{ $oldJenisKelamin == 'p' ? 'selected' : '' }}>Perempuan</option>
+                    </select>
+                    <span class="text-danger"></span>
+                </div>
+                @error('jenis_kelamin')
+                    <div class="invalid-feedback d-block ms-2">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-4 d-flex align-items-start gap-2">
+                <label for="nama_dapil" class="form-label fw-bold" style="width:150px; margin-top:8px;">Dapil</label>
+                <div class="d-flex flex-row gap-2">
+                    <input type="text" name="nama_dapil" id="nama_dapil" class="form-control @error('nama_dapil') is-invalid @enderror"
+                        value="{{ old('nama_dapil', $peserta->nama_dapil) }}" style="width:500px;">
+                    <span class="text-danger"></span>
+                </div>
+                @error('nama_dapil')
+                    <div class="invalid-feedback d-block ms-2">{{ $message }}</div>
+                @enderror
+            </div>
+
+            {{-- Peran --}}
+            {{-- <div class="mb-4 d-flex align-items-start gap-2">
                 <label for="peran" class="form-label fw-bold" style="width:150px; margin-top:8px;">Peran</label>
                 <div class="d-flex flex-row gap-2">
                     <select name="peran" id="peran" class="form-select @error('peran') is-invalid @enderror" style="width:500px;" required>
@@ -70,7 +124,7 @@
                 @error('peran')
                     <div class="invalid-feedback d-block ms-2">{{ $message }}</div>
                 @enderror
-            </div>
+            </div> --}}
 
             <button type="submit" class="btn btn-primary">Perbarui</button>
             <a href="{{ route('admin.peserta.index') }}" class="btn btn-secondary">Kembali</a>

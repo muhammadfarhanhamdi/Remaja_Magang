@@ -6,25 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class HasilPenilaianModel extends Model
+class PenggunaVideoModel extends Model
 {
     use HasFactory;
-
-    // protected $connection = 'db_parja';
-    protected $table = 'pengguna';
-    protected $primaryKey = 'id';
-
+    
+    protected $table = 'pengguna_video'; 
     protected $guarded = [];
-
     public $timestamps = false;
-
-    protected $casts = [
-        'bobot' => 'integer',
-        'skor' => 'float',
-        'nilai' => 'float',
-        'tanggal_input' => 'datetime',
-        'tanggal_update' => 'datetime',
-    ];
 
     protected static function boot()
     {
@@ -40,14 +28,4 @@ class HasilPenilaianModel extends Model
             $model->tanggal_update = now();
         });
     }
-
-    public function peserta()
-    {
-        return $this->belongsTo(PesertaModel::class, 'id_pengguna', 'id');
-    }
-
-    // public function kriteria()
-    // {
-    //     return $this->belongsTo(KriteriaModel::class, 'id_kriteria', 'id');
-    // }
 }

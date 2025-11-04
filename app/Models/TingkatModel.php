@@ -2,17 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
-use App\Models\KegiatanModel;
-use App\Models\TingkatModel;
 
-class PenggunaDataModel extends Model
+class TingkatModel extends Model
 {
     use HasFactory;
     
-    protected $table = 'pengguna_data';
+    protected $table = 'tingkat';
     protected $guarded = [];
     public $timestamps = false;
 
@@ -29,20 +27,5 @@ class PenggunaDataModel extends Model
             $model->user_update = Auth::check() ? Auth::user()->username : 'system';
             $model->tanggal_update = now();
         });
-    }
-
-    public function kegiatan()
-    {
-        return $this->belongsTo(KegiatanModel::class, 'id_kegiatan', 'id');
-    }
-
-    public function tingkat()
-    {
-        return $this->belongsTo(TingkatModel::class, 'id_tingkat', 'id');
-    }
-
-    public function partisipasi()
-    {
-        return $this->belongsTo(PartisipasiModel::class, 'id_partisipasi', 'id');
     }
 }

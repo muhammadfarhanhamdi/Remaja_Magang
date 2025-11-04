@@ -36,8 +36,13 @@ class PenilaianCvBelumController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'nilai_cv' => 'required|numeric|min:0|max:100',
             'catatan_cv' => 'nullable|string|max:1000',
+            'nilai_turnitin' => 'nullable|numeric|min:0|max:100',
+            'status_durasi_video' => 'nullable|boolean',
+            'pa' => 'nullable|numeric|min:0',
+            'pna' => 'nullable|numeric|min:0',
+            'po' => 'nullable|numeric|min:0',
+            'kk' => 'nullable|numeric|min:0',
         ]);
 
         try {

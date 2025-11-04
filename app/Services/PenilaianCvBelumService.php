@@ -21,7 +21,7 @@ class PenilaianCvBelumService
 
     public function getById($id)
     {
-        return PesertaModel::with('dataCv')
+        return PesertaModel::with(['dataCv', 'dataEsai', 'dataVideo'])
             ->where('id', $id)
             ->where('status', 1)
             ->firstOrFail();
@@ -31,11 +31,21 @@ class PenilaianCvBelumService
     {
         $peserta = PesertaModel::findOrFail($id);
         
+        $pa = $data['pa'] ?? 0;
+        $pna = $data['pna'] ?? 0;
+        $po = $data['po'] ?? 0;
+        $kk = $data['kk'] ?? 0;
+
+        $total_cv = $pa + $pna + $po + $kk;
+        
         $peserta->update([
-            'nilai_cv' => $data['nilai_cv'],
+            'nilai_cv' => $total_cv,
             'catatan_cv' => $data['catatan_cv'] ?? null,
             'user_cv' => Auth::check() ? Auth::user()->name : 'system',
             'status_cv' => 1,
+            
+            'nilai_turnitin' => $data['nilai_turnitin'] ?? $peserta->nilai_turnitin,
+            'status_durasi_video' => $data['status_durasi_video'] ?? 0,
         ]);
 
         return $peserta;

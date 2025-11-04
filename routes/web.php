@@ -279,7 +279,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 });
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-// ubah route index menajdi welcome.blade.php
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');

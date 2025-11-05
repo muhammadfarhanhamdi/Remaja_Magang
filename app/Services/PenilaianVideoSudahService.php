@@ -19,12 +19,26 @@ class PenilaianVideoSudahService
             ->paginate(20);
     }
 
-    public function getById($id)
+    public function getDetailById($id)
     {
-        return PesertaModel::where('id', $id)
+        $peserta = PesertaModel::where('id', $id)
             ->where('status', 1)
             ->where('status_video', 1)
             ->firstOrFail();
+
+        $video = $peserta->dataVideo; 
+
+        if (!$video) {
+             $video = new \stdClass();
+             $video->judul = 'Data Video Tidak Ditemukan';
+             $video->media_sosial = 'N/A';
+             $video->url = '#';
+        }
+
+        return [
+            'peserta' => $peserta,
+            'video' => $video
+        ];
     }
 
     public function batalPenilaian($id)
@@ -36,8 +50,11 @@ class PenilaianVideoSudahService
             'catatan_video' => null,
             'user_video' => null,
             'status_durasi_video' => 0,
-            'status_lokasi_video' => 0,
             'status_video' => 0,
+            'video_kesesuaian_tema' => 0,
+            'video_orisinalitas' => 0,
+            'video_public_speaking' => 0,
+            'video_kreativitas_konsep' => 0,
         ]);
 
         return $peserta;

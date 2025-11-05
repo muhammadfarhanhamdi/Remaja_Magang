@@ -26,9 +26,11 @@ class PenilaianVideoSudahController extends Controller
     public function show($id)
     {
         try {
-            $peserta = $this->service->getById($id);
-            
-            return redirect()->route('admin.penilaian_video_belum.edit', $peserta->id);
+            $data = $this->service->getDetailById($id); 
+            return view('admin.penilaian_video_sudah.show', [ 
+                'peserta' => $data['peserta'],
+                'video' => $data['video']
+            ]);
 
         } catch (\Exception $e) {
             Alert::error('Gagal', 'Data Hasil Penilaian Video tidak ditemukan: ' . $e->getMessage());

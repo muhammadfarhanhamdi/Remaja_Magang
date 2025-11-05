@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\PesertaModel; 
 use Illuminate\Http\Request;
+use App\Models\PesertaModel; 
+use App\Models\HasilPenilaianModel;
 use Illuminate\Support\Facades\Auth;
 
 class PenilaianCvSudahService
@@ -21,7 +22,15 @@ class PenilaianCvSudahService
 
     public function getById($id)
     {
-        return PesertaModel::where('id', $id)
+        return PesertaModel::with([
+                'dataCv' => function($query) {
+                    $query->with(['kegiatan', 'tingkat', 'partisipasi']);
+                }, 
+                'totalNilai' => function($query) {
+                    $query->with('kriteria');
+                }
+            ])
+            ->where('id', $id)
             ->where('status', 1)
             ->where('status_cv', 1)
             ->firstOrFail();
@@ -37,6 +46,8 @@ class PenilaianCvSudahService
             'user_cv' => null,
             'status_cv' => 0,
         ]);
+        
+        HasilPenilaianModel::where('id_pengguna', $id)->delete();
 
         return $peserta;
     }

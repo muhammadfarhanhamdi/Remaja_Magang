@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\PesertaModel;
+use App\Models\KriteriaModel;
 
 class HasilPenilaianModel extends Model
 {
     use HasFactory;
 
-    // protected $connection = 'db_parja';
-    protected $table = 'pengguna';
+    protected $table = 'pengguna_total';
     protected $primaryKey = 'id';
 
     protected $guarded = [];
@@ -46,8 +47,9 @@ class HasilPenilaianModel extends Model
         return $this->belongsTo(PesertaModel::class, 'id_pengguna', 'id');
     }
 
-    // public function kriteria()
-    // {
-    //     return $this->belongsTo(KriteriaModel::class, 'id_kriteria', 'id');
-    // }
+    public function kriteria()
+    {
+        return $this->belongsTo(KriteriaModel::class, 'id_kriteria', 'id');
+    }
 }
+

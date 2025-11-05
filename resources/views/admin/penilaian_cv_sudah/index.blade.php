@@ -65,7 +65,7 @@
                             <td>{{ $item->user_cv ?? '-' }}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="{{ route('admin.penilaian_cv_belum.edit', $item->id) }}" class="btn btn-sm btn-info">
+                                    <a href="{{ route('admin.penilaian_cv_sudah.show', $item->id) }}" class="btn btn-sm btn-info">
                                         VIEW CV
                                     </a>
                                     <form action="{{ route('admin.penilaian_cv_sudah.destroy', $item->id) }}" method="POST" class="form-batal" style="display:inline;">

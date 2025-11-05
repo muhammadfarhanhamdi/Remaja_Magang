@@ -8,18 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class Kriteria extends Model
 {
-    use HasFactory;
-
     protected $table = 'kriteria';
-    protected $fillable = [
-        'kriteria',
-        'bobot',
-        'status',
-        'user_input',
-        'tanggal_input',
-        'user_update',
-        'tanggal_update'
-    ];
+    protected $guarded = [];
     public $timestamps = false;
 
     protected static function boot()

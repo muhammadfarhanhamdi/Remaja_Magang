@@ -28,7 +28,14 @@ class PenilaianCvSudahController extends Controller
         try {
             $peserta = $this->service->getById($id);
             
-            return redirect()->route('admin.penilaian_cv_belum.edit', $peserta->id);
+            $skor = [
+                'PA' => $peserta->totalNilai->firstWhere('kriteria.kriteria', 'PA') ?? null,
+                'PNA' => $peserta->totalNilai->firstWhere('kriteria.kriteria', 'PNA') ?? null,
+                'PO' => $peserta->totalNilai->firstWhere('kriteria.kriteria', 'PO') ?? null,
+                'KK' => $peserta->totalNilai->firstWhere('kriteria.kriteria', 'KK') ?? null,
+            ];
+
+            return view('admin.penilaian_cv_sudah.show', compact('peserta', 'skor'));
 
         } catch (\Exception $e) {
             Alert::error('Gagal', 'Data Hasil Penilaian CV tidak ditemukan: ' . $e->getMessage());

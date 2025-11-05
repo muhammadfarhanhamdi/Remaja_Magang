@@ -5,22 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Dapil;
+use App\Models\DapilModel;
 use App\Models\PenilaianModel;
 use App\Models\PenggunaDataModel;
 use App\Models\PenggunaEsaiModel;
 use App\Models\PenggunaVideoModel;
+use App\Models\HasilPenilaianModel;
 
 class PesertaModel extends Model
 {
     use HasFactory;
 
-    // protected $connection = 'db_parja';
     protected $table = 'pengguna';
     protected $primaryKey = 'id';
-
     protected $guarded = [];
-
     public $timestamps = false;
 
     protected $casts = [
@@ -48,10 +46,12 @@ class PesertaModel extends Model
             $model->tanggal_update = now();
         });
     }
+
     public function dapil()
     {
-        return $this->belongsTo(DapilModel::class, 'id_dapil'); 
+        return $this->belongsTo(DapilModel::class, 'id_dapil', 'id_dapil'); 
     }
+
     public function penilaian()
     {
         return $this->hasMany(PenilaianModel::class, 'id_pengguna', 'id');
@@ -59,7 +59,8 @@ class PesertaModel extends Model
 
     public function dataCv()
     {
-        return $this->hasMany(PenggunaDataModel::class, 'id_pengguna', 'id');
+        return $this->hasMany(PenggunaDataModel::class, 'id_pengguna', 'id')
+                    ->with(['kegiatan', 'tingkat', 'partisipasi']);
     }
     
     public function dataEsai()
@@ -72,4 +73,8 @@ class PesertaModel extends Model
         return $this->hasOne(PenggunaVideoModel::class, 'id_pengguna', 'id');
     }
 
+    public function totalNilai()
+    {
+        return $this->hasMany(HasilPenilaianModel::class, 'id_pengguna', 'id');
+    }
 }

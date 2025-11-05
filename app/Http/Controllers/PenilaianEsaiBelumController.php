@@ -39,16 +39,28 @@ class PenilaianEsaiBelumController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'nilai_esai' => 'required|numeric|min:0|max:100',
             'nilai_turnitin' => 'required|numeric|min:0|max:100',
             'catatan_esai' => 'nullable|string|max:1000',
+            'orisinalitas' => 'required|numeric|min:0|max:100',
+            'kesesuaian_tema' => 'required|numeric|min:0|max:100',
+            'eksplorasi_tema' => 'required|numeric|min:0|max:100',
+            'keterkaitan_dpr' => 'required|numeric|min:0|max:100',
+            'proporsionalitas' => 'required|numeric|min:0|max:100',
+            'gaya_penulisan' => 'required|numeric|min:0|max:100',
+            'referensi' => 'required|numeric|min:0|max:100',
+            'action' => 'required|string|in:simpan,selesai',
         ]);
 
         try {
             $this->service->updatePenilaianEsai($id, $validated);
 
             Alert::success('Berhasil', 'Esai peserta telah berhasil dinilai.');
-            return redirect()->route('admin.penilaian_esai_belum.index');
+
+            if ($validated['action'] == 'selesai') {
+                return redirect()->route('admin.penilaian_esai_belum.index');
+            }
+
+            return back();
 
         } catch (\Exception $e) {
             Alert::error('Gagal', 'Terjadi kesalahan: ' . $e->getMessage());

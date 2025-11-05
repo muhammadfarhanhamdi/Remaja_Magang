@@ -21,7 +21,6 @@
         }
 
         .score-table th {
-            /* Keep score-table specific styles if needed, but the main appearance is now controlled by standard table classes */
             background-color: #f8f9fa;
         }
 
@@ -39,9 +38,6 @@
             font-size: 0.8rem;
             height: calc(1.5em + 0.5rem + 2px);
         }
-
-        /* Removed .bg-primary.bg-opacity-25 styles for filter table consistency */
-
         .table td.p-1 {
             padding: 0.25rem !important;
         }
@@ -65,78 +61,139 @@
         <div class="card-body">
             <h5 class="card-title mb-3">Data Siswa</h5>
             <div class="row">
-                <div class="col-md-8 mb-3">
-                    <label class="form-label">NISN</label>
-                    <input type="text" class="form-control" value="{{ $peserta->nisn ?? 'N/A' }}" readonly>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">NISN</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->nisn ?? 'N/A' }}" readonly>
+                    </div>
                 </div>
-                <div class="col-md-8 mb-3">
-                    <label class="form-label">Nama</label>
-                    <input type="text" class="form-control" value="{{ $peserta->nama ?? 'N/A' }}" readonly>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Nama</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->nama ?? 'N/A' }}" readonly>
+                    </div>
                 </div>
-                <div class="col-md-8 mb-3">
-                    <label class="form-label">Sekolah</label>
-                    <input type="text" class="form-control" value="{{ $peserta->asal_sekolah ?? 'N/A' }}" readonly>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Sekolah</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->asal_sekolah ?? 'N/A' }}" readonly>
+                    </div>
                 </div>
-                <div class="col-md-8 mb-3">
-                    <label class="form-label">Dapil</label>
-                    <input type="text" class="form-control" value="{{ $peserta->nama_dapil ?? 'N/A' }}" readonly>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Dapil</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->nama_dapil ?? 'N/A' }}" readonly>
+                    </div>
                 </div>
-                <div class="col-md-8 mb-3">
-                    <label class="form-label">Tanggal Pendaftaran</label>
-                    <input type="text" class="form-control"
-                        value="{{ $peserta->tanggal_pendaftaran ? $peserta->tanggal_pendaftaran->format('d-m-Y') : 'N/A' }}"
-                        readonly>
+                <hr>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Tgl. Pendaftaran</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm"
+                            value="{{ $peserta->tanggal_pendaftaran ? $peserta->tanggal_pendaftaran->format('d-m-Y') : 'N/A' }}"
+                            readonly>
+                    </div>
                 </div>
-                <div class="col-md-8 mb-3">
-                    <label class="form-label">Nama Panggilan</label>
-                    <input type="text" class="form-control" value="{{ $peserta->nama_panggilan ?? 'N/A' }}" readonly>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Nama</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->nama ?? 'N/A' }}" readonly>
+                    </div>
                 </div>
-                <div class="col-md-8 mb-3">
-                    <label class="form-label">Provinsi</label>
-                    <input type="text" class="form-control" value="{{ $peserta->nama_provinsi ?? 'N/A' }}" readonly>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Nama Panggilan</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->nama_panggilan ?? 'N/A' }}" readonly>
+                    </div>
                 </div>
-                <div class="col-md-8 mb-3">
-                    <label class="form-label">Kabupaten/Kota</label>
-                    <input type="text" class="form-control" value="{{ $peserta->nama_kabupaten ?? 'N/A' }}" readonly>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">NISN</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->nisn ?? 'N/A' }}" readonly>
+                    </div>
                 </div>
-                <div class="col-md-8 mb-3">
-                    <label class="form-label">Handphone</label>
-                    <input type="text" class="form-control" value="{{ $peserta->handphone ?? 'N/A' }}" readonly>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Asal Sekolah</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->asal_sekolah ?? 'N/A' }}" readonly>
+                    </div>
                 </div>
-                <div class="col-md-8 mb-3">
-                    <label class="form-label">Handphone Orang Tua</label>
-                    <input type="text" class="form-control" value="{{ $peserta->handphone_orangtua ?? 'N/A' }}"
-                        readonly>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Provinsi</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->nama_provinsi ?? 'N/A' }}" readonly>
+                    </div>
                 </div>
-                <div class="col-md-8 mb-3">
-                    <label class="form-label">Handphone Wali Murid</label>
-                    <input type="text" class="form-control" value="{{ $peserta->handphone_wali_murid ?? 'N/A' }}"
-                        readonly>
+                 <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Kabupaten/Kota</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->nama_kabupaten ?? 'N/A' }}" readonly>
+                    </div>
                 </div>
-                <div class="col-md-8 mb-3">
-                    <label class="form-label">Penilai</label>
-                    <input type="text" class="form-control" value="{{ $peserta->user_cv ?? 'N/A' }}" readonly>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Dapil</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->nama_dapil ?? 'N/A' }}" readonly>
+                    </div>
                 </div>
-                <div class="col-md-12 mb-3">
-                    <label class="form-label">Catatan</label>
-                    <textarea class="form-control" rows="2" readonly>{{ $peserta->catatan_cv ?? '' }}</textarea>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Handphone</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->handphone ?? 'N/A' }}" readonly>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Handphone Orangtua</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->handphone_orangtua ?? 'N/A' }}"
+                            readonly>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Handphone Wali Murid</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->handphone_wali_murid ?? 'N/A' }}"
+                            readonly>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Penilai</LAbel>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->user_esai ?? 'N/A' }}" readonly>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Catatan</label>
+                    <div class="col-sm-7">
+                        <textarea class="form-control form-control-sm" rows="5" readonly>{{ $peserta->catatan_esai ?? '' }}</textarea>
+                    </div>
                 </div>
             </div>
-
             <hr>
-
             <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label class="form-label">Nilai Turnitin</label>
-                    <input type="text" class="form-control" value="{{ $peserta->nilai_turnitin ?? '0' }} %" readonly>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label form-label">Nilai Turnitin</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-sm" value="{{ $peserta->nilai_turnitin ?? '0' }} %" readonly>
+                    </div>
                 </div>
                 <div class="col-md-4 mb-3 d-flex align-items-end">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox"
+                    <div class="form-check form-check-reverse" style="padding-left: 0;"> 
+                        <input class="form-check-input" type="checkbox" id="flexCheckDisabled"
                             {{ $peserta->status_durasi_video == 1 ? 'checked' : '' }} disabled>
                         <label class="form-check-label" for="flexCheckDisabled">
                             Durasi Video 3 Menit (Sesuai)
                         </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-sm-12 offset-sm-6 d-flex justify-content-end">
+                            <a href="{{ route('admin.penilaian_esai_sudah.index') }}" class="btn btn-secondary">Batal</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -198,7 +255,6 @@
             <h5 class="card-title mb-3">Rekapitulasi Skor Penilaian CV</h5>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-sm score-table align-middle">
-                    <!-- Added table-light for consistency -->
                     <thead class="table-light text-center">
                         <tr>
                             <th style="width: 5%;">No.</th>
@@ -315,15 +371,6 @@
                             </tr>
                         </tfoot>
                     </table>
-                </div>
-
-                <div class="mt-2">
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        <i class="fas fa-search"></i> Filter
-                    </button>
-                    <a href="{{ route('admin.penilaian_cv_sudah.index') }}" class="btn btn-secondary btn-sm">
-                        <i class="fas fa-redo"></i> Reset
-                    </a>
                 </div>
             </form>
         </div>

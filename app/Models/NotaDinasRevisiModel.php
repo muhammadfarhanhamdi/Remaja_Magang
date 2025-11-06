@@ -10,7 +10,7 @@ class NotaDinasRevisiModel extends Model
 {
     use HasFactory;
 
-    protected $connection = 'perencanaan';
+    // protected $connection = 'perencanaan';
     protected $table = 'nota_dinas_revisi';
 
     protected $guarded = [];

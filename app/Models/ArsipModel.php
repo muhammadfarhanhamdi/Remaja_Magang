@@ -10,7 +10,7 @@ class ArsipModel extends Model
 {
     use HasFactory;
 
-    protected $connection = 'perencanaan';
+    // protected $connection = 'perencanaan';
     protected $table = 'arsip';
 
     protected $guarded = [];

@@ -10,8 +10,8 @@ class KegiatanModel extends Model
 {
     use HasFactory;
 
-    protected $connection = 'perencanaan';
-    protected $table = 'usulan';
+    // protected $connection = 'perencanaan';
+    protected $table = 'kegiatan';
 
     protected $guarded = [];
 

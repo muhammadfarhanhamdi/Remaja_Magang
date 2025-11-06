@@ -1,6 +1,6 @@
 <div class="sidebar">
     <div class="sidebar-header">
-        <a href="{{ asset('template/dist/dashboard/sales.html') }}" class="sidebar-logo">Siparlemen </a>
+        <a href="{{ route('admin.dashboard.index') }}" class="sidebar-logo">Siparlemen </a>
     </div><!-- sidebar-header -->
 
     <div id="sidebarMenu" class="sidebar-body">
